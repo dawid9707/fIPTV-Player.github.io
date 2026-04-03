@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>f-IPTV Player - Nowoczesny Odtwarzacz IPTV</title>
+    <title>f-IPTV-Player - Nowoczesny Odtwarzacz IPTV</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -47,6 +47,7 @@
             margin: 0;
             transition: background-color 0.3s ease;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         /* Mica Effect Emulation */
@@ -54,7 +55,7 @@
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% -20%, rgba(0, 120, 212, 0.1), transparent 50%);
+            background: radial-gradient(circle at 50% -20%, rgba(0, 120, 212, 0.15), transparent 50%);
             z-index: -1;
             pointer-events: none;
         }
@@ -83,68 +84,65 @@
         .win-button {
             background-color: var(--accent-color);
             color: white;
-            padding: 8px 24px;
+            padding: 10px 28px;
             border-radius: 4px;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-weight: 500;
             border-bottom: 2px solid rgba(0,0,0,0.2);
         }
 
         .win-button:hover {
             filter: brightness(1.1);
-            box-shadow: 0 2px 8px rgba(0, 120, 212, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 120, 212, 0.4);
         }
 
         .win-button-secondary {
             background-color: rgba(128, 128, 128, 0.1);
             border: 1px solid rgba(128, 128, 128, 0.2);
-            padding: 8px 24px;
+            padding: 10px 28px;
             border-radius: 4px;
             transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .win-button-secondary:hover {
             background-color: rgba(128, 128, 128, 0.2);
         }
 
-        .screenshot-container {
-            position: relative;
-            perspective: 1000px;
-        }
-
         .screenshot-img {
             border-radius: 8px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.5s ease;
         }
 
         .feature-icon {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: var(--accent-color);
-            margin-bottom: 1rem;
+            background: rgba(0, 120, 212, 0.1);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
         }
 
         .hero-gradient {
-            background: linear-gradient(135deg, rgba(0, 120, 212, 0.1) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.05) 0%, transparent 100%);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(128, 128, 128, 0.3);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(128, 128, 128, 0.5);
+        .tech-badge {
+            background: rgba(128, 128, 128, 0.1);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(128, 128, 128, 0.2);
         }
 
         @keyframes fadeIn {
@@ -155,6 +153,16 @@
         .animate-fade-in {
             animation: fadeIn 0.8s ease forwards;
         }
+
+        .status-pill {
+            background: #22c55e;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -162,182 +170,199 @@
     <!-- Navigation -->
     <nav class="nav-blur px-6 py-3 flex justify-between items-center">
         <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-[#0078d4] rounded-md flex items-center justify-center text-white font-bold">
+            <div class="w-8 h-8 bg-[#0078d4] rounded-md flex items-center justify-center text-white">
                 <i class="fas fa-play text-xs"></i>
             </div>
             <span class="text-lg font-semibold tracking-tight">f-IPTV Player</span>
+            <span class="status-pill hidden sm:inline">Active</span>
         </div>
         <div class="hidden md:flex gap-8 text-sm font-medium">
             <a href="#features" class="hover:opacity-70 transition">Funkcje</a>
             <a href="#screenshots" class="hover:opacity-70 transition">Galeria</a>
-            <a href="#download" class="hover:opacity-70 transition">Pobierz</a>
+            <a href="#tech" class="hover:opacity-70 transition">Technologia</a>
         </div>
-        <a href="https://github.com/dawid9707/f-IPTV-Player" target="_blank" class="win-button-secondary text-xs flex items-center gap-2">
-            <i class="fab fa-github text-base"></i>
-            GitHub
-        </a>
+        <div class="flex gap-3">
+            <a href="https://github.com/dawid9707/f-IPTV-Player" target="_blank" class="win-button-secondary text-xs">
+                <i class="fab fa-github text-base"></i>
+                GitHub
+            </a>
+        </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="relative pt-20 pb-32 px-6 hero-gradient overflow-hidden">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
             <div class="animate-fade-in">
                 <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                    Odtwarzacz IPTV stworzony dla <span class="text-[#0078d4]">Windows 11</span>.
+                    Lekka aplikacja IPTV <span class="text-[#0078d4]">za darmo</span>.
                 </h1>
                 <p class="text-xl opacity-80 mb-8 max-w-lg">
-                    Szybki, lekki i nowoczesny odtwarzacz Twoich ulubionych kanałów. Zbudowany z myślą o elegancji i wydajności.
+                    Nowoczesna, lekka i intuicyjna aplikacja desktopowa. Stworzona z myślą o minimalistycznym designie i prostocie konfiguracji na systemy Windows.
                 </p>
                 <div class="flex flex-wrap gap-4">
                     <a href="https://github.com/dawid9707/f-IPTV-Player/releases" target="_blank" class="win-button">
                         <i class="fas fa-download"></i>
-                        Pobierz Teraz
+                        Pobierz v1.0
                     </a>
-                    <a href="#features" class="win-button-secondary">
-                        Dowiedz się więcej
+                    <a href="https://dawid9707.github.io/fIPTV-Player.github.io/" class="win-button-secondary">
+                        <i class="fas fa-external-link-alt"></i>
+                        Live Demo
                     </a>
                 </div>
-                <div class="mt-8 flex items-center gap-4 text-sm opacity-60">
-                    <span class="flex items-center gap-1"><i class="fas fa-check"></i> Open Source</span>
-                    <span class="flex items-center gap-1"><i class="fas fa-check"></i> Brak reklam</span>
+                <div class="mt-10 flex items-center gap-6 text-sm opacity-60">
+                    <span class="flex items-center gap-2"><i class="fab fa-python text-lg"></i> Python Powered</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-code-branch text-lg"></i> Open Source</span>
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-rectangle-ad"></i> Bez reklam</span>
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-money-check-dollar"></i> Za darmo</span>
                 </div>
             </div>
-            <div class="screenshot-container animate-fade-in" style="animation-delay: 0.2s">
-                <img src="https://github.com/dawid9707/f-IPTV-Player/raw/main/assests/channels.png" alt="Widok kanałów f-IPTV Player" class="screenshot-img" onerror="this.src='https://via.placeholder.com/800x500?text=f-IPTV+Channels+View'">
+            <div class="relative animate-fade-in" style="animation-delay: 0.2s">
+                <img src="https://github.com/dawid9707/f-IPTV-Player/raw/main/assests/bar.png" alt="Widok kanałów f-IPTV" class="screenshot-img" onerror="this.src='https://github.com/dawid9707/f-IPTV-Player/raw/main/assests/channels.png'">
+ 
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-24 px-6 bg-opacity-50">
+    <section id="features" class="py-24 px-6">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4">Dlaczego f-IPTV Player?</h2>
-                <p class="opacity-60 max-w-2xl mx-auto">Połączenie funkcjonalności z nowoczesnym interfejsem użytkownika Fluent Design.</p>
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold mb-4">Potężne możliwości</h2>
+                <p class="opacity-60 max-w-2xl">Wszystko, czego potrzebujesz do komfortowego oglądania IPTV w jednym miejscu.</p>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="acrylic-card p-8">
-                    <i class="fas fa-bolt feature-icon"></i>
-                    <h3 class="text-xl font-semibold mb-3">Wysoka Wydajność</h3>
-                    <p class="opacity-70">Aplikacja została zoptymalizowana pod kątem niskiego zużycia zasobów systemowych.</p>
+                    <div class="feature-icon"><i class="fas fa-link"></i></div>
+                    <h3 class="text-lg font-semibold mb-3">Szerokie wsparcie źródeł</h3>
+                    <ul class="text-sm opacity-70 space-y-2">
+                        <li>• Import list M3U (URL)</li>
+                        <li>• Xtream Codes API</li>
+                        <li>• Obsługa Stalker Portal (MAC)</li>
+                    </ul>
                 </div>
                 <div class="acrylic-card p-8">
-                    <i class="fas fa-palette feature-icon"></i>
-                    <h3 class="text-xl font-semibold mb-3">Interfejs Mica</h3>
-                    <p class="opacity-70">Wykorzystuje najnowsze standardy WinUI 3, idealnie komponując się z systemem Windows 11.</p>
+                    <div class="feature-icon"><i class="fas fa-heart"></i></div>
+                    <h3 class="text-lg font-semibold mb-3">Zarządzanie treścią</h3>
+                    <ul class="text-sm opacity-70 space-y-2">
+                        <li>• Wiele list jednocześnie</li>
+                        <li>• Sekcja Ulubione</li>
+                        <li>• Szybkie przełączanie źródeł</li>
+                    </ul>
                 </div>
                 <div class="acrylic-card p-8">
-                    <i class="fas fa-shield-alt feature-icon"></i>
-                    <h3 class="text-xl font-semibold mb-3">Prywatność i Bezpieczeństwo</h3>
-                    <p class="opacity-70">Twoje listy odtwarzania są przechowywane lokalnie. Pełna kontrola nad danymi.</p>
+                    <div class="feature-icon"><i class="fas fa-moon"></i></div>
+                    <h3 class="text-lg font-semibold mb-3">Modern UI</h3>
+                    <ul class="text-sm opacity-70 space-y-2">
+                        <li>• Elegancki Dark Mode</li>
+                        <li>• Nawigacja boczna Fluent</li>
+                        <li>• Responsywny interfejs</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Gallery / Screenshots Section -->
-    <section id="screenshots" class="py-24 px-6">
+    <!-- Screenshots Gallery -->
+    <section id="screenshots" class="py-24 px-6 bg-black bg-opacity-5">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold mb-12 text-center">Rzut oka na aplikację</h2>
+            <h2 class="text-3xl font-bold mb-12 text-center">Interfejs użytkownika</h2>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Import -->
                 <div class="space-y-4">
-                    <div class="acrylic-card p-2">
-                        <img src="https://github.com/dawid9707/f-IPTV-Player/raw/main/assests/import.png" alt="Import list" class="rounded w-full shadow-lg" onerror="this.style.display='none'">
-                    </div>
-                    <div class="px-4">
-                        <h4 class="font-semibold">Intuicyjny Import</h4>
-                        <p class="text-sm opacity-60">Łatwe dodawanie list odtwarzania M3U i konfiguracja źródeł.</p>
-                    </div>
+                    <img src="https://github.com/dawid9707/f-IPTV-Player/raw/main/assests/channels.png" alt="Widok kanałów" class="rounded-lg shadow-xl w-full border border-white border-opacity-10">
+                    <p class="text-center text-sm opacity-60 font-medium">Przejrzysta lista kanałów z podglądem</p>
                 </div>
-
-                <!-- Settings -->
                 <div class="space-y-4">
-                    <div class="acrylic-card p-2">
-                        <img src="https://github.com/dawid9707/f-IPTV-Player/raw/main/assests/settings.png" alt="Ustawienia" class="rounded w-full shadow-lg" onerror="this.style.display='none'">
-                    </div>
-                    <div class="px-4">
-                        <h4 class="font-semibold">Pełna Personalizacja</h4>
-                        <p class="text-sm opacity-60">Dostosuj zachowanie odtwarzacza i wygląd do własnych preferencji.</p>
-                    </div>
+                    <img src="https://github.com/dawid9707/f-IPTV-Player/raw/main/assests/import.png" alt="Import" class="rounded-lg shadow-xl w-full border border-white border-opacity-10">
+                    <p class="text-center text-sm opacity-60 font-medium">Intuicyjny kreator dodawania źródeł</p>
                 </div>
-
-                <!-- Saved -->
                 <div class="space-y-4">
-                    <div class="acrylic-card p-2">
-                        <img src="https://github.com/dawid9707/f-IPTV-Player/raw/main/assests/saved.png" alt="Zapisane" class="rounded w-full shadow-lg" onerror="this.style.display='none'">
-                    </div>
-                    <div class="px-4">
-                        <h4 class="font-semibold">Twoja Biblioteka</h4>
-                        <p class="text-sm opacity-60">Zapisuj ulubione kanały i wracaj do nich jednym kliknięciem.</p>
-                    </div>
+                    <img src="https://github.com/dawid9707/f-IPTV-Player/raw/main/assests/settings.png" alt="Ustawienia" class="rounded-lg shadow-xl w-full border border-white border-opacity-10">
+                    <p class="text-center text-sm opacity-60 font-medium">Centrum personalizacji aplikacji</p>
                 </div>
-
-                <!-- Main View -->
                 <div class="space-y-4">
-                    <div class="acrylic-card p-2">
-                        <img src="https://github.com/dawid9707/f-IPTV-Player/raw/main/assests/channels.png" alt="Widok kanałów" class="rounded w-full shadow-lg" onerror="this.style.display='none'">
-                    </div>
-                    <div class="px-4">
-                        <h4 class="font-semibold">Centrum Rozrywki</h4>
-                        <p class="text-sm opacity-60">Przejrzysta lista kanałów z podglądem i szybką nawigacją.</p>
-                    </div>
+                    <img src="https://github.com/dawid9707/f-IPTV-Player/raw/main/assests/saved.png" alt="Zapisane" class="rounded-lg shadow-xl w-full border border-white border-opacity-10">
+                    <p class="text-center text-sm opacity-60 font-medium">Baza Twoich ulubionych list i dostawców</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section id="download" class="py-24 px-6 text-center">
-        <div class="max-w-4xl mx-auto acrylic-card p-12 relative overflow-hidden">
-            <div class="relative z-10">
-                <h2 class="text-4xl font-bold mb-6">Gotowy na lepsze wrażenia z IPTV?</h2>
-                <p class="text-xl opacity-70 mb-10">Pobierz f-IPTV Player bezpośrednio z serwisu GitHub i zacznij oglądać już dziś.</p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="https://github.com/dawid9707/f-IPTV-Player/releases" target="_blank" class="win-button py-4 px-10 text-lg">
-                        <i class="fab fa-github"></i>
-                        Pobierz z GitHub
-                    </a>
-                    <a href="https://github.com/dawid9707/f-IPTV-Player/blob/main/fIPTVPlayer2.py" target="_blank" class="win-button-secondary py-4 px-10 text-lg">
-                        Zobacz Kod Źródłowy
-                    </a>
+    <!-- Tech Stack Section -->
+    <section id="tech" class="py-24 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl font-bold mb-12">Zbudowany na solidnych fundamentach</h2>
+            <div class="flex flex-wrap justify-center gap-6">
+                <div class="acrylic-card px-6 py-4 flex items-center gap-3">
+                    <i class="fab fa-python text-yellow-500"></i>
+                    <span class="font-medium">Python</span>
+                </div>
+                <div class="acrylic-card px-6 py-4 flex items-center gap-3">
+                    <span class="font-medium">PySide6</span>
+                </div>
+                <div class="acrylic-card px-6 py-4 flex items-center gap-3">
+                    <span class="font-medium">QFluentWidgets</span>
+                </div>
+                <div class="acrylic-card px-6 py-4 flex items-center gap-3">
+                    <span class="font-medium">QMediaPlayer</span>
                 </div>
             </div>
-            <!-- Background detail -->
-            <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-[#0078d4] opacity-10 rounded-full blur-3xl"></div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section class="py-24 px-6 bg-blue-600 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8">Zacznij oglądać w 3 krokach</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-left mb-12">
+                <div class="bg-white bg-opacity-10 p-6 rounded-lg">
+                    <div class="text-2xl font-bold mb-2">01</div>
+                    <p class="text-sm opacity-90">Pobierz najnowszą wersję z sekcji Releases na GitHubie.</p>
+                </div>
+                <div class="bg-white bg-opacity-10 p-6 rounded-lg">
+                    <div class="text-2xl font-bold mb-2">02</div>
+                    <p class="text-sm opacity-90">Rozpakuj archiwum i uruchom plik wykonywalny .exe.</p>
+                </div>
+                <div class="bg-white bg-opacity-10 p-6 rounded-lg">
+                    <div class="text-2xl font-bold mb-2">03</div>
+                    <p class="text-sm opacity-90">Kliknij ikonę "+" i dodaj swoją listę kanałów lub portal.</p>
+                </div>
+            </div>
+            <a href="https://github.com/dawid9707/f-IPTV-Player/releases" target="_blank" class="bg-white text-blue-600 px-10 py-4 rounded font-bold hover:bg-opacity-90 transition inline-block">
+                Przejdź do pobierania
+            </a>
+        </div>
+    </section>
+
+    <!-- Legal Note -->
+    <section class="py-12 px-6 opacity-40 text-[10px] uppercase tracking-widest text-center">
+        <div class="max-w-4xl mx-auto">
+            <p>Nota prawna: f-IPTV Player jest jedynie odtwarzaczem i nie zawiera żadnych wbudowanych kanałów ani treści. Użytkownik musi posiadać własne, legalne źródło treści IPTV.</p>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-gray-500 border-opacity-10 text-center text-sm opacity-50">
-        <p>© 2026 f-IPTV Player. Projekt Open Source stworzony przez dawid9707.</p>
-        <p class="mt-2">Wszelkie znaki towarowe należą do ich prawnych właścicieli.</p>
+    <footer class="py-12 px-6 border-t border-gray-500 border-opacity-10 text-center text-sm">
+        <p class="opacity-60 mb-4">Stworzone z pasją przez <strong>Dawid</strong> (@dawid9707)</p>
+        <div class="flex justify-center gap-4 text-lg">
+            <a href="https://github.com/dawid9707" class="hover:text-blue-500 transition"><i class="fab fa-github"></i></a>
+        </div>
     </footer>
 
     <script>
-        // Smooth scroll for anchors
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Simple Intersection Observer for animation on scroll
+        // Intersection Observer for scroll animations
+        const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate-fade-in');
                 }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
-        document.querySelectorAll('.acrylic-card').forEach(card => {
-            observer.observe(card);
+        document.querySelectorAll('.acrylic-card, section h2, .screenshot-img').forEach(el => {
+            observer.observe(el);
         });
     </script>
 </body>
